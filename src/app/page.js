@@ -10,58 +10,58 @@ export default function Home() {
   const slides = [
     {
       id: 1,
-      legenda: "Geração de Energia Solar Fotovoltaica Limpa e Renovável com a ARF Solar.",
+      legenda: "Energia Solar: Comece hoje a gerar sua própria eletricidade de forma limpa, sustentável e sem depender dos aumentos das tarifas.",
       imagePath: "/imgs/home_carrossel/slide (10).jpg"
     },
     {
       id: 2,
-      legenda: "Climatização Residencial e Comercial de Alta Performance com Garantia.",
+      legenda: "Valorize seu Patrimônio: Sistemas de energia fotovoltaica aumentam o valor de mercado e a atratividade do seu imóvel.",
       imagePath: "/imgs/home_carrossel/slide (9).jpg"
     },
     {
       id: 3,
-      legenda: "Infraestrutura Completa de Cobre e Drenos Embutidos em Projetos de Obra.",
+      legenda: "Economia Inteligente: Reduza em até 95% o custo da sua conta de luz mensal com painéis fotovoltaicos modernos de alta eficiência.",
       imagePath: "/imgs/home_carrossel/slide (8).jpg"
     },
     {
       id: 4,
-      legenda: "Economize até 95% na conta de luz com painéis fotovoltaicos modernos.",
+      legenda: "Placas Solares de Alta Tecnologia: Equipamentos com certificação de qualidade internacional para garantir máxima geração de energia.",
       imagePath: "/imgs/home_carrossel/slide (6).jpg"
     },
     {
       id: 5,
-      legenda: "Manutenção Preventiva de Climatização e Contratos de PMOC para Empresas.",
+      legenda: "Energia Solar ao seu Alcance: Projetos de engenharia sob medida desde o dimensionamento, instalação técnica e homologação burocrática.",
       imagePath: "/imgs/home_carrossel/slide (5).jpg"
     },
     {
       id: 6,
-      legenda: "Sistemas Fotovoltaicos Comerciais e Industriais de Grande Escala.",
+      legenda: "Bom para o seu bolso e para o planeta: Uma solução financeira inteligente que reduz custos operacionais e preserva a natureza.",
       imagePath: "/imgs/home_carrossel/slide (1).jpg"
     },
     {
       id: 7,
-      legenda: "Serviço Especializado de Furos Técnicos em Vigas de Concreto com Equipamento Circular.",
-      imagePath: "/imgs/home_carrossel/slide (1).png"
+      legenda: "Soluções completas em Ar-Condicionado: Dimensionamento, projetos de infraestrutura de cobre embutida em obras e contratos de PMOC.",
+      imagePath: "/imgs/home_carrossel/slidea(1).png"
     },
     {
       id: 8,
-      legenda: "Descubra o tempo de retorno do seu investimento com nosso Simulador Solar.",
-      imagePath: "/imgs/home_carrossel/slide (2).png"
+      legenda: "Instalação Profissional de Ar-Condicionado: Mão de obra qualificada e certificada para sistemas residenciais e corporativos de grande escala.",
+      imagePath: "/imgs/home_carrossel/slidea(2).png"
     },
     {
       id: 9,
-      legenda: "Atendimento de ponta a ponta com Homologação garantida junto à Distribuidora.",
-      imagePath: "/imgs/home_carrossel/slide (3).png"
+      legenda: "Ar-Condicionado e Conforto Térmico: Venda e suporte técnico das marcas líderes de mercado mantendo a garantia original de fábrica.",
+      imagePath: "/imgs/home_carrossel/slidea(3).png"
     }
   ];
 
-  // Alterna o slide a cada 5 segundos
+  // Alterna o slide a cada 5 segundos e reinicia a contagem quando o slide muda (manual ou automaticamente)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [currentSlide, slides.length]);
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
