@@ -77,9 +77,9 @@ export default function Navbar() {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-bold text-white transition-all duration-200 ${pathname.startsWith("/ar-condicionado")
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-bold transition-all duration-200 ${pathname.startsWith("/ar-condicionado")
                   ? "bg-[#ffcf00] text-[#0468BF]"
-                  : "hover:bg-white/15"
+                  : "text-white hover:bg-white/15"
                   }`}
               >
                 Ar Condicionado
@@ -87,16 +87,16 @@ export default function Navbar() {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute left-0 mt-2 w-60 rounded-xl bg-white shadow-2xl py-2 border border-slate-100 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute left-0 mt-2 w-60 rounded-xl bg-[#5fbf45] shadow-2xl py-2 border border-[#5fbf45] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <Link
                     href="/ar-condicionado/instalacao"
-                    className="block px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#0468BF] transition-colors"
+                    className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
                   >
                     Instalação Ar Condicionado
                   </Link>
                   <Link
                     href="/ar-condicionado/infraestrutura"
-                    className="block px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:text-[#0468BF] transition-colors"
+                    className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
                   >
                     Infraestrutura Ar Condicionado
                   </Link>

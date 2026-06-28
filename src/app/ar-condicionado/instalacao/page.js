@@ -29,7 +29,7 @@ export default function Instalacao() {
   return (
     <main className="bg-white min-h-screen pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span className="px-3 py-1 rounded-full bg-[#80BF6F]/10 border border-[#80BF6F]/30 text-[#0468BF] text-xs font-bold uppercase tracking-wider">
@@ -43,14 +43,14 @@ export default function Instalacao() {
 
         {/* Conteúdo e Carrossel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           {/* Texto descritivo */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-2xl font-bold text-[#0468BF]">
               Instalação Profissional Certificada
             </h2>
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-              A **ARF Solar** realiza a instalação técnica de aparelhos de ar-condicionado de todos os portes. Nossos técnicos são devidamente qualificados nas normas de segurança e instruídos pelos maiores fabricantes nacionais e importados.
+              A <b>ARF Solar</b> realiza a instalação técnica de aparelhos de ar-condicionado de todos os portes. Nossos técnicos são devidamente qualificados nas normas de segurança e instruídos pelos maiores fabricantes nacionais e importados.
             </p>
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
               Garantimos o correto cálculo de carga térmica (BTUs) do ambiente antes de sugerirmos o aparelho ideal, evitando alto consumo de energia elétrica ou climatização insuficiente.
@@ -93,16 +93,15 @@ export default function Instalacao() {
             <h3 className="text-lg font-bold text-slate-800 text-center">
               Fotos de Projetos Executados
             </h3>
-            
+
             <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl flex items-center justify-center">
-              
+
               {/* Slides do Carrossel (Espaço reservado) */}
               {slides.map((slide, idx) => (
                 <div
                   key={slide.id}
-                  className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${
-                    idx === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
-                  }`}
+                  className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${idx === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
                 >
                   <div className="w-full h-full p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-slate-700/60 rounded-3xl m-4">
                     <Wind className="w-12 h-12 text-[#5FBF45] mb-2 animate-bounce" />
@@ -137,9 +136,8 @@ export default function Instalacao() {
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    idx === currentSlide ? "bg-[#0468BF] w-6" : "bg-slate-300 hover:bg-slate-400"
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-all ${idx === currentSlide ? "bg-[#0468BF] w-6" : "bg-slate-300 hover:bg-slate-400"
+                    }`}
                 />
               ))}
             </div>
