@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #020617; /* Slate 950 como fundo base */
+  --foreground: #f8fafc; /* Slate 50 para texto claro */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Efeito de gradiente radial de fundo moderno */
+.bg-radial-gradient {
+  background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%);
+}
+
+/* Rotação lenta para decorações solares */
+.animate-spin-slow {
+  animation: spin 15s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
