@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-[#5FBF45] text-white border-t border-[#80BF6F] mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
+
           {/* Contatos */}
           <div>
             <h3 className="text-lg font-bold mb-4 tracking-wider border-b-2 border-white pb-2 inline-block">
@@ -54,31 +54,8 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-4 tracking-wider border-b-2 border-white pb-2 inline-block">
               Formas de Pagamento
             </h3>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
-                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[9px] text-white tracking-widest shrink-0">
-                  VISA
-                </div>
-                <span className="font-bold">Visa</span>
-              </div>
-              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
-                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[8px] text-white tracking-widest shrink-0">
-                  MC
-                </div>
-                <span className="font-bold">Mastercard</span>
-              </div>
-              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
-                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[9px] text-white tracking-widest shrink-0">
-                  HC
-                </div>
-                <span className="font-bold">Hypercard</span>
-              </div>
-              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
-                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[9px] text-white tracking-widest shrink-0">
-                  ELO
-                </div>
-                <span className="font-bold">Elo</span>
-              </div>
+            <div className="flex items-center bg-white/10 border border-white/20 p-3.5 rounded-2xl h-fit">
+              <img src="/imgs/pagamentos.png" alt="Formas de Pagamento" className="w-full h-auto object-contain" />
             </div>
           </div>
 

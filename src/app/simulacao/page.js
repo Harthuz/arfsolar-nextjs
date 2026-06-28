@@ -24,7 +24,7 @@ export default function Simulacao() {
   return (
     <main className="bg-white min-h-screen pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header da Página */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span className="px-3 py-1 rounded-full bg-[#80BF6F]/10 border border-[#80BF6F]/30 text-[#0468BF] text-xs font-bold uppercase tracking-wider">
@@ -38,7 +38,7 @@ export default function Simulacao() {
 
         {/* Layout do Simulador */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
+
           {/* Coluna 1: Ajuste do Valor da Conta */}
           <div className="lg:col-span-5 bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-8 shadow-sm">
             <div>
@@ -83,7 +83,7 @@ export default function Simulacao() {
                 rel="noopener noreferrer"
                 className="text-center w-full bg-[#5FBF45] hover:bg-[#80BF6F] text-white font-extrabold px-4 py-4 rounded-xl block shadow transition-all duration-200 text-sm"
               >
-                Falar com Engenheiro no WhatsApp
+                Falar diretamente no WhatsApp
               </a>
               <a
                 href="/contato"
@@ -96,14 +96,14 @@ export default function Simulacao() {
 
           {/* Coluna 2: Resultados da Simulação */}
           <div className="lg:col-span-7 bg-[#0468BF]/5 border border-[#0468BF]/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-              
+
               <div className="space-y-6">
                 <h3 className="text-lg font-bold text-slate-950 border-b border-slate-200/80 pb-3">
                   Retorno e Economia Estimada
                 </h3>
-                
+
                 <div className="space-y-1">
                   <div className="text-xs text-slate-500 font-bold uppercase">Sua Economia Mensal</div>
                   <div className="text-3xl font-extrabold text-[#5FBF45]">R$ {economiaMensalEstimada}</div>

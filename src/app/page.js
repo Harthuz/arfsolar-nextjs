@@ -25,12 +25,12 @@ export default function Home() {
     },
     {
       id: 4,
-      legenda: "Placas Solares de Alta Tecnologia: Equipamentos com certificação de qualidade internacional para garantir máxima geração de energia.",
+      legenda: "Placas Solares de Alta Tecnologia: Equipamentos com qualidade para garantir máxima geração de energia.",
       imagePath: "/imgs/home_carrossel/slide (6).jpg"
     },
     {
       id: 5,
-      legenda: "Energia Solar ao seu Alcance: Projetos de engenharia sob medida desde o dimensionamento, instalação técnica e homologação burocrática.",
+      legenda: "Energia Solar ao seu Alcance: Projetos de engenharia sob medida desde o dimensionamento, instalação técnica e homologação.",
       imagePath: "/imgs/home_carrossel/slide (5).jpg"
     },
     {
@@ -40,17 +40,17 @@ export default function Home() {
     },
     {
       id: 7,
-      legenda: "Soluções completas em Ar-Condicionado: Dimensionamento, projetos de infraestrutura de cobre embutida em obras e contratos de PMOC.",
+      legenda: "Soluções completas em Ar-Condicionado: Dimensionamento, projetos de infraestrutura de cobre embutida em obras.",
       imagePath: "/imgs/home_carrossel/slidea(1).png"
     },
     {
       id: 8,
-      legenda: "Instalação Profissional de Ar-Condicionado: Mão de obra qualificada e certificada para sistemas residenciais e corporativos de grande escala.",
+      legenda: "Instalação Profissional de Ar-Condicionado: Mão de obra qualificada para sistemas residenciais e corporativos de grande escala.",
       imagePath: "/imgs/home_carrossel/slidea(2).png"
     },
     {
       id: 9,
-      legenda: "Ar-Condicionado e Conforto Térmico: Venda e suporte técnico das marcas líderes de mercado mantendo a garantia original de fábrica.",
+      legenda: "Ar-Condicionado e Conforto Térmico: Venda e suporte técnico direto dos fornecedores líderes de mercado mantendo a garantia original de fábrica.",
       imagePath: "/imgs/home_carrossel/slidea(3).png"
     }
   ];
@@ -71,68 +71,68 @@ export default function Home() {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
-  // 7 Faixas Informativas (Alternadas Esquerda/Direita e com textos atualizados)
+  // 7 Faixas Informativas da Página Inicial com imagens e textos solicitados
   const faixas = [
     {
-      titulo: "1. Painéis Solares Fotovoltaicos",
+      titulo: "1. Painéis Solares - Economia de até 95% na conta de luz",
       desc: "Instale painéis solares na sua residência ou empresa e reduza sua conta de energia em até 95%. Pague apenas a taxa mínima de conexão da distribuidora e livre-se dos aumentos constantes nas tarifas de eletricidade.",
       botaoText: "Simular Minha Economia",
       botaoLink: "/simulacao",
-      imgName: "Faixa_Painel_Solar_Fotovoltaico",
-      badge: "Energia Solar",
+      imagePath: "/imgs/home_sessoes/economiaze s1.jpg",
+      badge: "Economia Imediata",
       icon: <Zap className="w-5 h-5 text-[#ffcf00]" />
     },
     {
-      titulo: "2. Instalação de Ar Condicionado",
-      desc: "Nossa equipe profissional realiza a venda e instalação completa de aparelhos de ar-condicionado de todos os modelos (Split, Multi-split, Cassete e VRF) das marcas líderes de mercado, garantindo eficiência e conforto.",
-      botaoText: "Ver Serviços de Instalação",
-      botaoLink: "/ar-condicionado/instalacao",
-      imgName: "Faixa_Instalacao_Ar_Condicionado",
-      badge: "Climatização",
-      icon: <Wind className="w-5 h-5 text-[#0468BF]" />
+      titulo: "2. Produza sua própria Energia!",
+      desc: "Seja independente em energia! Produza sua própria eletricidade limpa através do sol e livre-se de vez das oscilações de tarifas e cobranças extras das concessionárias de energia do país. Entre em contato com a ARF Solar e solicite um estudo técnico e orçamento personalizado sem compromisso.",
+      botaoText: "Solicitar Orçamento",
+      botaoLink: "/contato",
+      imagePath: "/imgs/home_sessoes/esquematica.jpg",
+      badge: "Autossuficiência",
+      icon: <Sun className="w-5 h-5 text-[#0468BF]" />
     },
     {
-      titulo: "3. Infraestrutura Embutida em Obras",
-      desc: "Realizamos a infraestrutura completa de ar-condicionado durante a fase de reforma ou obra, embutindo tubulações de cobre e drenos na alvenaria. Garantia de ambientes limpos e visual sem fiação aparente.",
-      botaoText: "Conhecer Infraestrutura",
-      botaoLink: "/ar-condicionado/infraestrutura",
-      imgName: "Faixa_Infraestrutura_Obra",
-      badge: "Infraestrutura",
-      icon: <Hammer className="w-5 h-5 text-[#0468BF]" />
+      titulo: "3. Bom para o seu Bolso e para o Planeta",
+      desc: "A energia solar é uma fonte de energia limpa, renovável e inesgotável, e você contribui ativamente para o desenvolvimento social e ambiental, diminuindo as emissões de carbono e valorizando seu orçamento.",
+      botaoText: "Conhecer Soluções",
+      botaoLink: "/energia-solar",
+      imagePath: "/imgs/home_carrossel/slide (1).jpg",
+      badge: "Sustentabilidade",
+      icon: <Zap className="w-5 h-5 text-[#ffcf00]" />
     },
     {
       titulo: "4. Valorize o seu Patrimônio",
-      desc: "Você pode ter energia solar fotovoltaica mesmo se não pretende ficar no mesmo imóvel durante toda a vida útil do sistema. O sistema de Energia Solar agrega valor ao seu imóvel.",
+      desc: "Você pode ter energia solar fotovoltaica mesmo se não pretende ficar no mesmo imóvel durante toda a vida útil do sistema. O sistema de Energia Solar agrega valor de mercado e liquidez imediata ao seu imóvel.",
       botaoText: "Simular Valorização",
       botaoLink: "/simulacao",
-      imgName: "Faixa_Valorize_Patrimonio",
+      imagePath: "/imgs/home_sessoes/valorize.jpg",
       badge: "Investimento",
       icon: <Award className="w-5 h-5 text-[#ffcf00]" />
     },
     {
       titulo: "5. Sistema Residencial",
-      desc: "A instalação de sistemas fotovoltaicos residenciais vem crescendo cada dia mais.",
+      desc: "A instalação de sistemas fotovoltaicos residenciais vem crescendo cada dia mais no Brasil, permitindo o uso livre de eletrodomésticos e ar-condicionado sem surpresas no fim do mês.",
       botaoText: "Projetos Residenciais",
       botaoLink: "/energia-solar",
-      imgName: "Faixa_Sistema_Residencial",
+      imagePath: "/imgs/home_sessoes/residencial.jpg",
       badge: "Residencial",
       icon: <Sun className="w-5 h-5 text-[#0468BF]" />
     },
     {
       titulo: "6. Sistema Estacionamento",
-      desc: "Estruturas projetadas e dimensionadas para vagas de estacionamento vêm dando nova forma aos modelos de instalações de sistemas fotovoltaicos no Brasil.",
+      desc: "Estruturas projetadas e dimensionadas para vagas de estacionamento (Carport Solar) vêm dando nova forma aos modelos de instalações de sistemas fotovoltaicos no Brasil, unindo proteção veicular com alta produtividade elétrica.",
       botaoText: "Projetos de Estacionamento",
       botaoLink: "/energia-solar",
-      imgName: "Faixa_Sistema_Estacionamento",
+      imagePath: "/imgs/home_sessoes/estacionamento.jpg",
       badge: "Carport Solar",
       icon: <Zap className="w-5 h-5 text-[#ffcf00]" />
     },
     {
       titulo: "7. Sistema Industrial",
-      desc: "Atualmente comércios e indústrias são caracterizados pelo seu alto índice de consumo, e a forma mais viável hoje de barrar este gasto é instalar um sistema fotovoltaico, diminuindo 95% de consumo.",
+      desc: "Atualmente comércios e indústrias são caracterizados pelo seu alto índice de consumo, e a forma mais viável hoje de barrar este gasto é instalar um sistema fotovoltaico, diminuindo até 95% do consumo elétrico global.",
       botaoText: "Projetos Industriais",
       botaoLink: "/energia-solar",
-      imgName: "Faixa_Sistema_Industrial",
+      imagePath: "/imgs/home_sessoes/intustrial.jpg",
       badge: "Comercial / Industrial",
       icon: <Calculator className="w-5 h-5 text-[#5FBF45]" />
     }
@@ -217,21 +217,9 @@ export default function Home() {
                     }`}
                 >
 
-                  {/* Espaço para Imagem (esquerda ou direita) */}
-                  <div className="w-full lg:w-1/2 aspect-[4/3] relative rounded-2xl overflow-hidden shadow-xl border border-slate-200">
-                    <div className="absolute inset-0 bg-slate-50 flex items-center justify-center p-6 text-center border-2 border-dashed border-slate-300 rounded-2xl">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                          {faixa.icon}
-                        </div>
-                        <span className="text-sm font-bold text-slate-700 block">
-                          [Espaço para Imagem: {faixa.imgName}]
-                        </span>
-                        <span className="text-xs text-slate-400">
-                          (Recomendado: 800x600px)
-                        </span>
-                      </div>
-                    </div>
+                  {/* Imagem Real da Faixa (esquerda ou direita) */}
+                  <div className="h-full lg:w-1/2 aspect-[4/3] relative rounded-2xl shadow-xl border border-slate-200 bg-slate-50 overflow-hidden">
+                    <img src={faixa.imagePath} alt={faixa.titulo} className="w-full h-full object-cover" />
                   </div>
 
                   {/* Informações (direita ou esquerda) */}

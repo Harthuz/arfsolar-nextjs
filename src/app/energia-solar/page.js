@@ -43,31 +43,171 @@ export default function EnergiaSolar() {
     switch (activeTab) {
       case "funcionamento":
         return (
-          <div className="space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0468BF]">
-              Como Funciona a Energia Fotovoltaica?
-            </h2>
-            <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-              A energia fotovoltaica é a conversão direta da luz solar em eletricidade. O processo ocorre por meio de células fotovoltaicas montadas em painéis no telhado da sua residência ou empresa.
-            </p>
-            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 flex items-center justify-center text-center p-6 my-6">
-              <div>
-                <span className="text-sm font-bold text-slate-700 block">
-                  [Espaço para Imagem: Infográfico_Fluxo_Fotovoltaico]
-                </span>
-                <span className="text-xs text-slate-400 mt-1 block">
-                  (Recomendado: Fluxo mostrando captação do sol, inversor e conexão com a rede)
-                </span>
+          <div className="space-y-8 animate-in fade-in duration-300">
+
+            {/* Introdução e Funcionamento */}
+            <div className="space-y-4">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0468BF]">
+                Como Funciona a Energia Solar Fotovoltaica?
+              </h2>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                A energia solar fotovoltaica é utilizada para gerar energia elétrica para milhares de residências e indústrias. Depois da energia hidráulica e eólica, a energia solar fotovoltaica é a terceira mais importante fonte de energia renovável do mundo, utilizada em mais de 100 países.
+              </p>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                O funcionamento da energia fotovoltaica ocorre através da irradiação solar que é convertida diretamente em energia elétrica. Quanto maior for a radiação solar maior será a quantidade de eletricidade produzida.
+              </p>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                Esse processo de conversão de energia solar para energia elétrica acontece através do <strong>efeito fotovoltaico</strong>, o qual se dá através de células fotovoltaicas, feitas de materiais semicondutores, como o silício. Quando a célula é exposta à luz solar, parte dos elétrons do material iluminado absorve fótons (partículas de energia presentes na luz solar), gerando eletricidade.
+              </p>
+            </div>
+
+            {/* CIRCUITO ANIMADO DE ENERGIA (Visual Premium) */}
+            <div className="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+              <h3 className="text-sm font-black uppercase text-[#ffcf00] tracking-widest text-center">
+                Circuito de Fluxo de Energia em Tempo Real (Demonstração)
+              </h3>
+              <div className="w-full overflow-x-auto flex justify-center">
+                <svg className="w-full min-w-[500px] max-w-[650px] h-32" viewBox="0 0 600 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <style>{`
+                    @keyframes flow {
+                      to {
+                        stroke-dashoffset: -20;
+                      }
+                    }
+                    .energy-flow-line {
+                      stroke-dasharray: 6, 4;
+                      animation: flow 1s linear infinite;
+                    }
+                  `}</style>
+
+                  {/* Linhas de conexão */}
+                  {/* Sol/Painel -> Inversor */}
+                  <path d="M 90 50 L 210 50" stroke="#ffcf00" strokeWidth="3" className="energy-flow-line" />
+                  {/* Inversor -> Quadro */}
+                  <path d="M 270 50 L 390 50" stroke="#5FBF45" strokeWidth="3" className="energy-flow-line" />
+                  {/* Quadro -> Aparelhos / Rede */}
+                  <path d="M 450 50 L 510 50" stroke="#0468BF" strokeWidth="3" className="energy-flow-line" />
+
+                  {/* Nós do circuito */}
+                  {/* 1. Painel Solar */}
+                  <circle cx="50" cy="50" r="32" fill="#0468BF" stroke="#5FBF45" strokeWidth="2.5" />
+                  <text x="50" y="53" fill="white" fontSize="9" fontWeight="bold" textAnchor="middle">PAINÉIS</text>
+                  <text x="50" y="63" fill="#ffcf00" fontSize="7" fontWeight="bold" textAnchor="middle">CC</text>
+
+                  {/* 2. Inversor */}
+                  <circle cx="240" cy="50" r="32" fill="#1e293b" stroke="#ffcf00" strokeWidth="2.5" />
+                  <text x="240" y="53" fill="white" fontSize="9" fontWeight="bold" textAnchor="middle">INVERSOR</text>
+                  <text x="240" y="63" fill="#5FBF45" fontSize="7" fontWeight="bold" textAnchor="middle">CC ➔ CA</text>
+
+                  {/* 3. Quadro */}
+                  <circle cx="420" cy="50" r="32" fill="#5FBF45" stroke="#ffffff" strokeWidth="2.5" />
+                  <text x="420" y="53" fill="white" fontSize="9" fontWeight="bold" textAnchor="middle">QUADRO</text>
+                  <text x="420" y="63" fill="#ffffff" fontSize="7" fontWeight="bold" textAnchor="middle">DISTRIB.</text>
+
+                  {/* 4. Consumo / Rede */}
+                  <circle cx="550" cy="50" r="32" fill="#0468BF" stroke="#ffffff" strokeWidth="2.5" />
+                  <text x="550" y="53" fill="white" fontSize="9" fontWeight="bold" textAnchor="middle">CASA/REDE</text>
+                  <text x="550" y="63" fill="#ffcf00" fontSize="7" fontWeight="bold" textAnchor="middle">CRÉDITOS</text>
+                </svg>
+              </div>
+              <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                * O sol incide nas placas gerando Corrente Contínua (CC), que é enviada ao Inversor para virar Corrente Alternada (CA), sendo injetada na rede e consumida pela casa.
+              </p>
+            </div>
+
+            {/* Infográfico do Fluxo de 5 Passos */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-slate-900">
+                Infográfico do Fluxo do Sistema
+              </h3>
+              <div className="w-full relative overflow-hidden">
+                <img
+                  src="/imgs/fluxo_energia_solar_traduzido.png"
+                  alt="Fluxo de Geração de Energia Solar Fotovoltaica"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
+
+            {/* 5 Passos */}
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-slate-800">O Ciclo de Geração de Energia:</h3>
-              <ul className="list-disc pl-5 space-y-2 text-slate-600 text-sm">
-                <li>Os painéis captam a luz solar durante o dia e produzem corrente contínua (CC).</li>
-                <li>O inversor solar converte a corrente contínua em corrente alternada (CA), pronta para uso em eletrodomésticos.</li>
-                <li>O excedente gerado é injetado de volta na rede da concessionária e vira créditos energéticos com validade de até 60 meses.</li>
-              </ul>
+              <h3 className="text-xl font-bold text-slate-900 border-b border-slate-100 pb-2">
+                5 Passos Sobre o Sistema de Energia Solar Fotovoltaica
+              </h3>
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-[#0468BF] text-white flex items-center justify-center font-black shrink-0 text-sm">1</div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    <strong>Painéis Solares:</strong> São instalados sobre o telhado e através da luz do sol geram energia elétrica (energia solar fotovoltaica). Estes painéis são conectados a um inversor solar.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-[#0468BF] text-white flex items-center justify-center font-black shrink-0 text-sm">2</div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    <strong>Inversor Solar & String Box:</strong> O Inversor Solar converte a energia solar dos seus painéis fotovoltaicos (Corrente Contínua - CC) em energia elétrica para a sua casa ou empresa (Corrente Alternada - CA). Para garantir a proteção do circuito entre o painel fotovoltaico e o inversor, o String Box é conectado ao inversor solar. Após isso a energia vai para o quadro de luz.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-[#0468BF] text-white flex items-center justify-center font-black shrink-0 text-sm">3</div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    <strong>Quadro de Luz:</strong> Através do Quadro de Luz a energia é distribuída para os circuitos elétricos da sua casa ou empresa.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-[#0468BF] text-white flex items-center justify-center font-black shrink-0 text-sm">4</div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    <strong>Consumo Local:</strong> Ocorre o consumo de energia em tudo que utiliza eletricidade no local: TV, computador, ar-condicionado, lâmpadas, entre outros.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-[#0468BF] text-white flex items-center justify-center font-black shrink-0 text-sm">5</div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    <strong>Créditos de Energia:</strong> Quando se produz mais energia do que o necessário para o consumo, esse excesso de energia elétrica volta para a rede elétrica pública através do relógio medidor bidirecional, convertendo-se em "créditos de energia" para serem utilizados de noite ou nos próximos meses. Ou seja, você produz energia limpa através da luz do sol e reduz a sua conta de luz em até 95%!
+                  </p>
+                </div>
+              </div>
             </div>
+
+            {/* Ciclo Dia / Noite */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+              <div className="space-y-2">
+                <h4 className="font-extrabold text-slate-900 text-sm uppercase tracking-wide text-[#0468BF]">Durante o Dia</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Durante o dia o painel solar fotovoltaico gera energia que é consumida pelos aparelhos elétricos de sua empresa ou residência. A energia elétrica excedente é enviada para a rede elétrica gerando créditos na sua conta de luz.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-extrabold text-slate-900 text-sm uppercase tracking-wide text-[#5FBF45]">Durante a Noite</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Durante a noite serão utilizados os créditos de energia elétrica acumulados (eles são válidos por 5 anos e podem ser consumidos também em dias nublados ou no inverno).
+                </p>
+              </div>
+            </div>
+
+            {/* 8 Vantagens */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-slate-900 border-b border-slate-100 pb-2">
+                8 Vantagens para Utilização da Energia Solar Fotovoltaica
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  "Gera Créditos de Energia (Economia de até 95% na conta de luz);",
+                  "Valorização do Imóvel;",
+                  "Energia Limpa e gratuita (o Sol);",
+                  "Fonte Renovável e inesgotável (energia solar);",
+                  "Baixa Manutenção;",
+                  "Fácil instalação;",
+                  "Expansível (por ser modular, pode ser ampliada conforme a necessidade);",
+                  "Ecológico (não agride o meio ambiente)."
+                ].map((vantagem, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm text-slate-600 bg-white border border-slate-100 p-3 rounded-xl shadow-sm">
+                    <ShieldCheck className="w-5 h-5 text-[#5FBF45] shrink-0" />
+                    <span>{vantagem}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         );
       case "residencial":
@@ -79,15 +219,8 @@ export default function EnergiaSolar() {
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
               Proteja sua família contra aumentos anuais nas tarifas de eletricidade e valorize seu imóvel em até 10% de forma imediata. O sistema solar residencial é projetado de acordo com a área útil do seu telhado e seu consumo mensal médio de luz.
             </p>
-            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 flex items-center justify-center text-center p-6 my-6">
-              <div>
-                <span className="text-sm font-bold text-slate-700 block">
-                  [Espaço para Imagem: Telhado_Residencial_Solar]
-                </span>
-                <span className="text-xs text-slate-400 mt-1 block">
-                  (Recomendado: Foto real de painéis fotovoltaicos em telhado residencial)
-                </span>
-              </div>
+            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 my-6">
+              <img src="/imgs/home_sessoes/residencial.jpg" alt="Energia Solar Residencial" className="w-full h-full object-cover" />
             </div>
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-slate-800">Principais Benefícios para Casas:</h3>
@@ -108,15 +241,8 @@ export default function EnergiaSolar() {
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
               Melhore drasticamente os custos operacionais da sua empresa ou indústria. Sistemas de médio e grande porte proporcionam excelente previsibilidade financeira, imunidade contra bandeiras tarifárias e reforçam a responsabilidade socioambiental do seu negócio (selo verde).
             </p>
-            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 flex items-center justify-center text-center p-6 my-6">
-              <div>
-                <span className="text-sm font-bold text-slate-700 block">
-                  [Espaço para Imagem: Usina_Solar_Comercial]
-                </span>
-                <span className="text-xs text-slate-400 mt-1 block">
-                  (Recomendado: Painéis solares instalados em telhado de galpão comercial ou industrial)
-                </span>
-              </div>
+            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 my-6">
+              <img src="/imgs/home_sessoes/intustrial.jpg" alt="Energia Solar Comercial e Industrial" className="w-full h-full object-cover" />
             </div>
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-slate-800">Diferenciais Corporativos:</h3>
@@ -137,15 +263,8 @@ export default function EnergiaSolar() {
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
               Aproveite o espaço aberto do seu estacionamento para gerar energia limpa. As estruturas de carport servem simultaneamente de cobertura protetora para os veículos contra intempéries (sol e chuva) e geram energia diretamente no ponto de consumo.
             </p>
-            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 flex items-center justify-center text-center p-6 my-6">
-              <div>
-                <span className="text-sm font-bold text-slate-700 block">
-                  [Espaço para Imagem: Estacionamento_Carport_Solar]
-                </span>
-                <span className="text-xs text-slate-400 mt-1 block">
-                  (Recomendado: Estrutura de estacionamento coberta por placas solares)
-                </span>
-              </div>
+            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 my-6">
+              <img src="/imgs/home_sessoes/estacionamento.jpg" alt="Carport Solar" className="w-full h-full object-cover" />
             </div>
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-slate-800">Ideal Para:</h3>
@@ -166,16 +285,6 @@ export default function EnergiaSolar() {
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
               O produtor rural enfrenta elevados custos com energia em suas atividades operacionais. Com a energia solar no campo, é possível alimentar sistemas de irrigação automática, ordenhas mecânicas, iluminação de galpões e refrigeração, garantindo independência e eficiência.
             </p>
-            <div className="w-full aspect-[16/9] relative rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 flex items-center justify-center text-center p-6 my-6">
-              <div>
-                <span className="text-sm font-bold text-slate-700 block">
-                  [Espaço para Imagem: Usina_Solar_Rural]
-                </span>
-                <span className="text-xs text-slate-400 mt-1 block">
-                  (Recomendado: Sistemas instalados diretamente sobre solo rural ou fazenda)
-                </span>
-              </div>
-            </div>
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-slate-800">Aplicações no Campo:</h3>
               <ul className="list-disc pl-5 space-y-2 text-slate-600 text-sm">
@@ -219,8 +328,8 @@ export default function EnergiaSolar() {
                 key={opt.id}
                 onClick={() => setActiveTab(opt.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left text-sm font-bold transition-all ${activeTab === opt.id
-                    ? "bg-[#0468BF] text-white shadow-md shadow-[#0468BF]/10"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-[#0468BF]"
+                  ? "bg-[#0468BF] text-white shadow-md shadow-[#0468BF]/10"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-[#0468BF]"
                   }`}
               >
                 <div className={`shrink-0 ${activeTab === opt.id ? "text-[#ffcf00]" : "text-slate-400"}`}>
@@ -251,7 +360,7 @@ export default function EnergiaSolar() {
                   Deseja tirar dúvidas rápidas sobre esta solução?
                 </h4>
                 <p className="text-xs text-slate-500 max-w-md mx-auto">
-                  Clique no botão abaixo para iniciar uma conversa direto com o nosso engenheiro no WhatsApp.
+                  Clique no botão abaixo para iniciar uma conversa direto no WhatsApp.
                 </p>
                 <a
                   href="https://wa.me/5511947769974?text=Olá!%20Gostaria%20de%20conversar%20sobre%20o%20sistema%20solar%20que%20vi%20no%20site."
