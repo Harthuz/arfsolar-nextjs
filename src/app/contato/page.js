@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, ThumbsUp, Send } from "lucide-react";
+import { Mail, Phone, MapPin, ThumbsUp, Send, AlertTriangle, Loader2 } from "lucide-react";
+
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || ""; // Substitua aqui por sua chave do Web3Forms
 
 export default function Contato() {
   const [formData, setFormData] = useState({
@@ -10,26 +12,62 @@ export default function Contato() {
     telefone: "",
     mensagem: "",
   });
-  const [formStatus, setFormStatus] = useState(false);
+
+  // Estados de envio: "idle" (aguardando), "sending" (enviando), "success" (sucesso), "error" (erro)
+  const [formStatus, setFormStatus] = useState("idle");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormStatus(true);
-    setTimeout(() => {
-      setFormStatus(false);
-      setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
-    }, 4000);
+    setFormStatus("sending");
+
+    // Se o usuário não configurou a chave ainda, fazemos um envio simulado (mock) com timer de 1.5s
+    if (ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE" || ACCESS_KEY.trim() === "") {
+      setTimeout(() => {
+        setFormStatus("success");
+        setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
+      }, 1500);
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          name: formData.nome,
+          email: formData.email,
+          phone: formData.telefone,
+          message: formData.mensagem,
+          from_name: "Site ARF Solar",
+          subject: "Nova Mensagem de Contato - ARF Solar",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setFormStatus("success");
+        setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
+      } else {
+        setFormStatus("error");
+      }
+    } catch (error) {
+      setFormStatus("error");
+    }
   };
 
   return (
     <main className="bg-white min-h-screen pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header da Página */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span className="px-3 py-1 rounded-full bg-[#80BF6F]/10 border border-[#80BF6F]/30 text-[#0468BF] text-xs font-bold uppercase tracking-wider">
@@ -43,7 +81,7 @@ export default function Contato() {
 
         {/* Layout Dividido ao Meio */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-          
+
           {/* Coluna da Esquerda: Formulário de Contato */}
           <div className="lg:col-span-7 bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between">
             <div>
@@ -54,15 +92,39 @@ export default function Contato() {
                 Faremos um estudo preliminar da sua solicitação e entraremos em contato.
               </p>
 
-              {formStatus ? (
-                <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl p-6 text-center space-y-2">
+              {formStatus === "success" && (
+                <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl p-6 text-center space-y-3 animate-in fade-in duration-300">
                   <ThumbsUp className="w-10 h-10 mx-auto text-emerald-600 animate-bounce" />
                   <h3 className="font-extrabold text-lg">Mensagem Enviada!</h3>
                   <p className="text-xs text-emerald-600/80">
-                    Obrigado. Em breve nossa equipe comercial entrará em contato via telefone ou WhatsApp.
+                    Obrigado. Os dados foram enviados com sucesso e nossa equipe comercial entrará em contato em breve.
                   </p>
+                  <button
+                    onClick={() => setFormStatus("idle")}
+                    className="mt-2 text-xs font-bold text-[#0468BF] hover:underline"
+                  >
+                    Enviar outra mensagem
+                  </button>
                 </div>
-              ) : (
+              )}
+
+              {formStatus === "error" && (
+                <div className="bg-rose-50 border border-rose-100 text-rose-700 rounded-2xl p-6 text-center space-y-3 animate-in fade-in duration-300">
+                  <AlertTriangle className="w-10 h-10 mx-auto text-rose-600" />
+                  <h3 className="font-extrabold text-lg">Erro no Envio</h3>
+                  <p className="text-xs text-rose-600/80">
+                    Não foi possível processar o formulário. Por favor, tente novamente ou entre em contato diretamente pelo WhatsApp.
+                  </p>
+                  <button
+                    onClick={() => setFormStatus("idle")}
+                    className="mt-2 bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2 rounded-xl text-xs"
+                  >
+                    Tentar Novamente
+                  </button>
+                </div>
+              )}
+
+              {(formStatus === "idle" || formStatus === "sending") && (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-600 mb-1.5">Nome Completo</label>
@@ -70,9 +132,10 @@ export default function Contato() {
                       type="text"
                       name="nome"
                       required
+                      disabled={formStatus === "sending"}
                       value={formData.nome}
                       onChange={handleInputChange}
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors disabled:opacity-50"
                       placeholder="Digite seu nome completo"
                     />
                   </div>
@@ -84,9 +147,10 @@ export default function Contato() {
                         type="email"
                         name="email"
                         required
+                        disabled={formStatus === "sending"}
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors disabled:opacity-50"
                         placeholder="seu.email@exemplo.com"
                       />
                     </div>
@@ -96,9 +160,10 @@ export default function Contato() {
                         type="tel"
                         name="telefone"
                         required
+                        disabled={formStatus === "sending"}
                         value={formData.telefone}
                         onChange={handleInputChange}
-                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors disabled:opacity-50"
                         placeholder="(11) 99999-9999"
                       />
                     </div>
@@ -110,19 +175,30 @@ export default function Contato() {
                       name="mensagem"
                       rows="4"
                       required
+                      disabled={formStatus === "sending"}
                       value={formData.mensagem}
                       onChange={handleInputChange}
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0B15D9] transition-colors resize-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] transition-colors resize-none disabled:opacity-50"
                       placeholder="Descreva detalhes como consumo médio de energia ou o serviço de climatização desejado..."
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 bg-[#0468BF] hover:bg-[#0468BF]/90 text-white font-extrabold py-3.5 px-4 rounded-xl shadow transition-all duration-200 hover:scale-[1.01] text-xs"
+                    disabled={formStatus === "sending"}
+                    className="w-full flex items-center justify-center gap-2 bg-[#0468BF] hover:bg-[#0468BF]/90 text-white font-extrabold py-3.5 px-4 rounded-xl shadow transition-all duration-200 hover:scale-[1.01] text-xs disabled:opacity-75 disabled:cursor-not-allowed"
                   >
-                    <Send className="w-4 h-4" />
-                    Enviar Mensagem de Contato
+                    {formStatus === "sending" ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Enviando Mensagem...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Enviar Mensagem de Contato
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -145,16 +221,13 @@ export default function Contato() {
             </div>
           </div>
 
-          {/* Coluna da Direita: Imagem de Preenchimento */}
-          <div className="lg:col-span-5 relative w-full aspect-square lg:aspect-auto rounded-3xl overflow-hidden shadow-md border border-slate-200 bg-slate-50 flex items-center justify-center text-center p-8">
-            <div>
-              <span className="text-sm font-bold text-slate-700 block">
-                [Espaço para Imagem: Contato_Ilustrativo]
-              </span>
-              <span className="text-xs text-slate-400 mt-2 block">
-                (Recomendado: Atendente comercial ou painéis solares em ambiente corporativo)
-              </span>
-            </div>
+          {/* Coluna da Direita: Imagem Real */}
+          <div className="lg:col-span-5 relative w-full aspect-square lg:aspect-auto rounded-3xl overflow-hidden shadow-md border border-slate-200 bg-slate-50">
+            <img
+              src="/imgs/home_sessoes/residencial.jpg"
+              alt="Atendimento ARF Solar"
+              className="w-full h-full object-cover"
+            />
           </div>
 
         </div>

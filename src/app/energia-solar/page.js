@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sun, ShieldCheck, HelpCircle, Building2, Car, Tractor, Phone, Mail, ThumbsUp, Send } from "lucide-react";
+import { Sun, ShieldCheck, HelpCircle, Building2, Car, Tractor, Phone, Mail, ThumbsUp, Send, AlertTriangle, Loader2 } from "lucide-react";
+
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
 
 export default function EnergiaSolar() {
   const [activeTab, setActiveTab] = useState("funcionamento");
@@ -13,20 +15,56 @@ export default function EnergiaSolar() {
     telefone: "",
     mensagem: "",
   });
-  const [formStatus, setFormStatus] = useState(false);
+  
+  // Estados de envio: "idle", "sending", "success", "error"
+  const [formStatus, setFormStatus] = useState("idle");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormStatus(true);
-    setTimeout(() => {
-      setFormStatus(false);
-      setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
-    }, 4000);
+    setFormStatus("sending");
+
+    // Se o usuário não configurou a chave ainda, fazemos um envio simulado (mock) com timer de 1.5s
+    if (ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE" || ACCESS_KEY.trim() === "") {
+      setTimeout(() => {
+        setFormStatus("success");
+        setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
+      }, 1500);
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          name: formData.nome,
+          email: formData.email,
+          phone: formData.telefone,
+          message: formData.mensagem,
+          from_name: "Site ARF Solar - Soluções",
+          subject: "Novo Lead de Energia Solar - ARF Solar",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setFormStatus("success");
+        setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
+      } else {
+        setFormStatus("error");
+      }
+    } catch (error) {
+      setFormStatus("error");
+    }
   };
 
   // 5 Opções de Abas
@@ -386,13 +424,37 @@ export default function EnergiaSolar() {
                   </p>
                 </div>
 
-                {formStatus ? (
-                  <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-xl p-5 text-center space-y-1">
-                    <ThumbsUp className="w-8 h-8 mx-auto text-emerald-600 animate-bounce" />
-                    <h5 className="font-bold text-sm">Recebemos sua mensagem!</h5>
-                    <p className="text-xs text-emerald-600/80">Nossa equipe retornará no seu telefone/whatsapp em breve.</p>
+                {formStatus === "success" && (
+                  <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl p-6 text-center space-y-3 animate-in fade-in duration-300 max-w-lg mx-auto">
+                    <ThumbsUp className="w-10 h-10 mx-auto text-emerald-600 animate-bounce" />
+                    <h5 className="font-extrabold text-base">Recebemos sua mensagem!</h5>
+                    <p className="text-xs text-emerald-600/80">Obrigado. Nossa equipe de engenharia e vendas retornará no seu telefone/whatsapp em breve.</p>
+                    <button 
+                      onClick={() => setFormStatus("idle")}
+                      className="text-xs font-bold text-[#0468BF] hover:underline"
+                    >
+                      Solicitar outra simulação/contato
+                    </button>
                   </div>
-                ) : (
+                )}
+
+                {formStatus === "error" && (
+                  <div className="bg-rose-50 border border-rose-100 text-rose-700 rounded-2xl p-6 text-center space-y-3 animate-in fade-in duration-300 max-w-lg mx-auto">
+                    <AlertTriangle className="w-10 h-10 mx-auto text-rose-600" />
+                    <h5 className="font-extrabold text-base">Erro no Envio</h5>
+                    <p className="text-xs text-rose-600/80">
+                      Não foi possível processar seu orçamento. Por favor, tente novamente ou fale conosco direto via WhatsApp no botão acima.
+                    </p>
+                    <button 
+                      onClick={() => setFormStatus("idle")}
+                      className="bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2 rounded-xl text-xs"
+                    >
+                      Tentar Novamente
+                    </button>
+                  </div>
+                )}
+
+                {(formStatus === "idle" || formStatus === "sending") && (
                   <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto">
                     <div>
                       <label className="block text-xs font-bold text-slate-600 mb-1.5">Nome Completo</label>
@@ -400,9 +462,10 @@ export default function EnergiaSolar() {
                         type="text"
                         name="nome"
                         required
+                        disabled={formStatus === "sending"}
                         value={formData.nome}
                         onChange={handleInputChange}
-                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF]"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] disabled:opacity-50"
                         placeholder="Digite seu nome"
                       />
                     </div>
@@ -413,9 +476,10 @@ export default function EnergiaSolar() {
                           type="email"
                           name="email"
                           required
+                          disabled={formStatus === "sending"}
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF]"
+                          className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] disabled:opacity-50"
                           placeholder="seu.email@exemplo.com"
                         />
                       </div>
@@ -425,9 +489,10 @@ export default function EnergiaSolar() {
                           type="tel"
                           name="telefone"
                           required
+                          disabled={formStatus === "sending"}
                           value={formData.telefone}
                           onChange={handleInputChange}
-                          className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF]"
+                          className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] disabled:opacity-50"
                           placeholder="(11) 99999-9999"
                         />
                       </div>
@@ -438,18 +503,29 @@ export default function EnergiaSolar() {
                         name="mensagem"
                         rows="3"
                         required
+                        disabled={formStatus === "sending"}
                         value={formData.mensagem}
                         onChange={handleInputChange}
-                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0B15D9] resize-none"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-[#0468BF] resize-none disabled:opacity-50"
                         placeholder="Descreva seu telhado ou sua conta de energia média..."
                       ></textarea>
                     </div>
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-center gap-2 bg-[#0468BF] hover:bg-[#0468BF]/90 text-white font-extrabold py-3.5 px-4 rounded-xl shadow transition-all duration-200 hover:scale-[1.01] text-xs"
+                      disabled={formStatus === "sending"}
+                      className="w-full flex items-center justify-center gap-2 bg-[#0468BF] hover:bg-[#0468BF]/90 text-white font-extrabold py-3.5 px-4 rounded-xl shadow transition-all duration-200 hover:scale-[1.01] text-xs disabled:opacity-75 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-3.5 h-3.5" />
-                      Enviar Mensagem
+                      {formStatus === "sending" ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Enviando Mensagem...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3.5 h-3.5" />
+                          Enviar Mensagem
+                        </>
+                      )}
                     </button>
                   </form>
                 )}
