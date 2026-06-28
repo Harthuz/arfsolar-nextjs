@@ -1,31 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617; /* Slate 950 como fundo base */
-  --foreground: #f8fafc; /* Slate 50 para texto claro */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  /* slate-900 para excelente legibilidade no fundo branco */
+
+  /* Cores institucionais solicitadas */
+  --color-primary-blue: #0468BF; /* Azul menos forte */
+  --color-medium-blue: #0468BF;
+  --color-primary-green: #5FBF45;
+  --color-soft-green: #80BF6F;
+  --color-yellow: #ffcf00; /* Amarelo solicitado */
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* Efeito de gradiente radial de fundo moderno */
-.bg-radial-gradient {
-  background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%);
+/* Animações e Transições específicas */
+.carousel-zoom-effect {
+  animation: zoomEffect 6s ease-in-out infinite alternate;
 }
 
-/* Rotação lenta para decorações solares */
-.animate-spin-slow {
-  animation: spin 15s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+@keyframes zoomEffect {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: rotate(360deg);
+
+  100% {
+    transform: scale(1.06);
   }
 }
-

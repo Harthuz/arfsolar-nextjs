@@ -1,112 +1,94 @@
 import React from "react";
-import { Mail, Phone, MapPin, Sun } from "lucide-react";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-slate-950 text-slate-400 border-t border-slate-900">
+    <footer className="bg-[#5FBF45] text-white border-t border-[#80BF6F] mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Coluna 1: Sobre */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-gradient-to-br from-amber-400 to-blue-500 flex items-center justify-center text-slate-950 font-bold text-xs">
-                ARF
-              </div>
-              <span className="text-lg font-bold text-white tracking-wider">ARF SOLAR</span>
-            </div>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Especialistas em climatização e energia solar fotovoltaica. Desde 2006 garantindo conforto térmico e redução na conta de energia de forma sustentável.
-            </p>
-          </div>
-
-          {/* Coluna 2: Links Úteis */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Contatos */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Navegação</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#inicio" className="hover:text-amber-400 transition-colors">Início</a>
+            <h3 className="text-lg font-bold mb-4 tracking-wider border-b-2 border-white pb-2 inline-block">
+              Fale Conosco
+            </h3>
+            <ul className="space-y-3 text-sm text-white/95">
+              <li className="flex items-start gap-2">
+                <span className="font-bold text-[#ffcf00]">WhatsApp:</span>
+                <a
+                  href="https://wa.me/5511947769974?text=Olá!%20Gostaria%20de%20fazer%20um%20orçamento."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline hover:text-[#ffcf00] font-bold"
+                >
+                  (11) 94776-9974
+                </a>
               </li>
-              <li>
-                <a href="#empresa" className="hover:text-amber-400 transition-colors">Empresa</a>
-              </li>
-              <li>
-                <a href="#energia-solar" className="hover:text-amber-400 transition-colors">Energia Solar</a>
-              </li>
-              <li>
-                <a href="#simulacao" className="hover:text-amber-400 transition-colors">Faça sua Simulação</a>
-              </li>
-              <li>
-                <a href="#ar-condicionado" className="hover:text-amber-400 transition-colors">Ar Condicionado</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Coluna 3: Contatos */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Fale Conosco</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
-                <span>(11) 94776-9974</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
-                <a href="mailto:contato@arfsolar.com.br" className="hover:text-white transition-colors">
+              <li className="flex items-start gap-2">
+                <span className="font-bold text-[#ffcf00]">E-mail:</span>
+                <a
+                  href="mailto:contato@arfsolar.com.br"
+                  className="hover:underline hover:text-[#ffcf00] font-bold"
+                >
                   contato@arfsolar.com.br
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
-                <span className="leading-relaxed">
-                  Rua Manoel Rodrigues, 16<br />
-                  Vila Monte Santo, São Paulo - SP<br />
-                  CEP 08062-015
-                </span>
-              </li>
             </ul>
           </div>
 
-          {/* Coluna 4: Redes Sociais e Selos */}
-          <div className="space-y-4">
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Redes Sociais</h3>
-            <div className="flex gap-4">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-amber-500 transition-all duration-300"
-              >
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M9 8H7v3h2v9h4v-9h3.6l.4-3H13V6c0-.5.5-1 1-1h3V1H13c-3 0-5 2-5 5v2z" />
-                </svg>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white hover:bg-amber-500 transition-all duration-300"
-              >
-                <svg className="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-            </div>
-            <div className="pt-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/50 text-[11px] text-slate-400">
-                <Sun className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                <span>Energia 100% Limpa</span>
+          {/* Endereço */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 tracking-wider border-b-2 border-white pb-2 inline-block">
+              Nossa Sede
+            </h3>
+            <p className="text-sm text-white/95 leading-relaxed font-semibold">
+              Rua Manoel Rodrigues, 16<br />
+              Vila Monte Santo, São Paulo - SP<br />
+              CEP 08062-015
+            </p>
+          </div>
+
+          {/* Formas de Pagamento */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 tracking-wider border-b-2 border-white pb-2 inline-block">
+              Formas de Pagamento
+            </h3>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
+                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[9px] text-white tracking-widest shrink-0">
+                  VISA
+                </div>
+                <span className="font-bold">Visa</span>
+              </div>
+              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
+                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[8px] text-white tracking-widest shrink-0">
+                  MC
+                </div>
+                <span className="font-bold">Mastercard</span>
+              </div>
+              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
+                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[9px] text-white tracking-widest shrink-0">
+                  HC
+                </div>
+                <span className="font-bold">Hypercard</span>
+              </div>
+              <div className="flex items-center gap-2 bg-[#0468BF]/30 border border-white/20 p-2.5 rounded-lg">
+                <div className="w-8 h-5 bg-white/20 rounded flex items-center justify-center font-black text-[9px] text-white tracking-widest shrink-0">
+                  ELO
+                </div>
+                <span className="font-bold">Elo</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-12 pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} ARF Solar. Todos os direitos reservados.</p>
-          <p className="mt-1">
-            Desenvolvido em React, Node e Next.js
-          </p>
+        </div>
+      </div>
+
+      {/* Faixa Inferior de Copyright - Fundo Amarelo ffcf00 e Texto Azul 0468BF */}
+      <div className="bg-[#ffcf00] py-6 border-t border-[#80BF6F]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs font-black text-[#0468BF] tracking-widest uppercase">
+          © {currentYear} ARF Solar. Todos os direitos reservados.
         </div>
       </div>
     </footer>
