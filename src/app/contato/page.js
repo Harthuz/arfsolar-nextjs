@@ -22,6 +22,17 @@ export default function Contato() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus("sending");
+    const isDev = process.env.NODE_ENV === "development";
+
+    if (isDev) {
+      console.log("Contato Form: Iniciando envio do formulário...");
+      console.log("Contato Form: Enviando dados para /api/contato:", {
+        nome: formData.nome,
+        email: formData.email,
+        telefone: formData.telefone,
+        mensagem: formData.mensagem,
+      });
+    }
 
     try {
       const response = await fetch("/api/contato", {
@@ -40,14 +51,27 @@ export default function Contato() {
         }),
       });
 
+      if (isDev) {
+        console.log("Contato Form: Status HTTP recebido:", response.status);
+      }
       const result = await response.json();
+      if (isDev) {
+        console.log("Contato Form: Resultado da API interna:", result);
+      }
+
       if (result.success) {
         setFormStatus("success");
         setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
       } else {
+        if (isDev) {
+          console.warn("Contato Form: A resposta retornou success = false:", result);
+        }
         setFormStatus("error");
       }
     } catch (error) {
+      if (isDev) {
+        console.error("Contato Form: Erro na requisição (catch):", error);
+      }
       setFormStatus("error");
     }
   };

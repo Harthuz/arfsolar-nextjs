@@ -25,6 +25,17 @@ export default function EnergiaSolar() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus("sending");
+    const isDev = process.env.NODE_ENV === "development";
+
+    if (isDev) {
+      console.log("Energia Solar Form: Iniciando envio do formulário...");
+      console.log("Energia Solar Form: Enviando dados para /api/contato:", {
+        nome: formData.nome,
+        email: formData.email,
+        telefone: formData.telefone,
+        mensagem: formData.mensagem,
+      });
+    }
 
     try {
       const response = await fetch("/api/contato", {
@@ -43,14 +54,27 @@ export default function EnergiaSolar() {
         }),
       });
 
+      if (isDev) {
+        console.log("Energia Solar Form: Status HTTP recebido:", response.status);
+      }
       const result = await response.json();
+      if (isDev) {
+        console.log("Energia Solar Form: Resultado da API interna:", result);
+      }
+
       if (result.success) {
         setFormStatus("success");
         setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
       } else {
+        if (isDev) {
+          console.warn("Energia Solar Form: A resposta retornou success = false:", result);
+        }
         setFormStatus("error");
       }
     } catch (error) {
+      if (isDev) {
+        console.error("Energia Solar Form: Erro na requisição (catch):", error);
+      }
       setFormStatus("error");
     }
   };
