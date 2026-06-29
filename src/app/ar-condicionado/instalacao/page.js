@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Wind, ShieldCheck, ThumbsUp, Wrench } from "lucide-react";
+import { ChevronLeft, ChevronRight, Wind, ShieldCheck, ThumbsUp, Wrench, Hammer } from "lucide-react";
 
 export default function Instalacao() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    { id: 0, type: "video", name: "Video_Demonstrativo_Instalacao", desc: "Vídeo Demonstrativo do Serviço de Instalação de Ar-Condicionado.", videoUrl: "https://www.youtube.com/embed/NkPlo7GciAA" },
+    { id: 0, type: "video", name: "Video_Demonstrativo_Instalacao", desc: "Vídeo Demonstrativo do Serviço de Instalação de Ar-Condicionado.", videoUrl: "https://player.vimeo.com/video/1205318393?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" },
     { id: 1, type: "image", name: "ar (1).jpg", path: "/imgs/ar_condicionado/ar (1).jpg", desc: "Instalação de evaporadora Split residencial em dormitório." },
     { id: 2, type: "image", name: "ar (1).png", path: "/imgs/ar_condicionado/ar (1).png", desc: "Montagem de linhas de refrigeração e isolamento." },
     { id: 3, type: "image", name: "ar (2).jpg", path: "/imgs/ar_condicionado/ar (2).jpg", desc: "Unidade condensadora externa fixada com suporte antivibratório." },
@@ -48,10 +48,10 @@ export default function Instalacao() {
           {/* Texto descritivo */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-2xl font-bold text-[#0468BF]">
-              Instalação Profissional Certificada
+              Instalação Profissional
             </h2>
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-              A <b>ARF Solar</b> realiza a instalação técnica de aparelhos de ar-condicionado de todos os portes. Nossos técnicos são devidamente qualificados nas normas de segurança e instruídos pelos maiores fabricantes nacionais e importados.
+              A <b>ARF Solar</b> realiza a instalação técnica de aparelhos de ar-condicionado de todos os portes. Nossos profissionais são qualificados nas normas dos fabricantes.
             </p>
             <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
               Garantimos o correto cálculo de carga térmica (BTUs) do ambiente antes de sugerirmos o aparelho ideal, evitando alto consumo de energia elétrica ou climatização insuficiente.
@@ -115,10 +115,10 @@ export default function Instalacao() {
                     </div>
                   ) : (
                     <div className="relative w-full h-full">
-                      <img 
-                        src={slide.path} 
-                        alt={slide.name} 
-                        className="w-full h-full object-cover" 
+                      <img
+                        src={slide.path}
+                        alt={slide.name}
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   )}
@@ -150,6 +150,78 @@ export default function Instalacao() {
                     }`}
                 />
               ))}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Seção de Parcerias e PMOC */}
+        <div className="mt-20 border-t border-slate-100 pt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+
+          {/* Box de Parcerias Estratégicas */}
+          <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <span className="px-3 py-1 rounded-full bg-[#80BF6F]/10 border border-[#80BF6F]/30 text-[#0468BF] text-[10px] font-bold uppercase tracking-wider">
+                Segurança e Engenharia
+              </span>
+              <h3 className="text-xl md:text-2xl font-black text-slate-900 mt-3 mb-2">
+                Nossas Parcerias Técnicas
+              </h3>
+              <div className="h-1 bg-[#5FBF45] w-16 rounded-full mb-6" />
+              <p className="text-xs text-slate-500 mb-6">
+                Unimos forças com os melhores profissionais do mercado para entregar soluções seguras, legalizadas e de alto padrão técnico.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex gap-4 items-start bg-white p-4 rounded-2xl border border-slate-100">
+                  <div className="w-10 h-10 shrink-0 rounded-xl bg-[#0468BF]/10 flex items-center justify-center text-[#0468BF]">
+                    <Hammer className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Furos Especiais em Vigas</h4>
+                    <p className="text-xs text-slate-600 mt-1">
+                      Temos parceria com empresa que faz furos especiais em vigas com a assinatura de um engenheiro responsável.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start bg-white p-4 rounded-2xl border border-slate-100">
+                  <div className="w-10 h-10 shrink-0 rounded-xl bg-[#5FBF45]/10 flex items-center justify-center text-[#5FBF45]">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Engenharia de PMOC</h4>
+                    <p className="text-xs text-slate-600 mt-1">
+                      Temos parceria com engenheiros na área de PMOC para garantir a legalidade e conformidade de sua empresa.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Box de Explicativo PMOC */}
+          <div className="bg-[#5fbf45]/5 border border-[#5fbf45]/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <span className="px-3 py-1 rounded-full bg-[#5fbf45]/15 text-[#0468BF] text-[10px] font-bold uppercase tracking-wider">
+                Lei Federal 13.589/18
+              </span>
+              <h3 className="text-xl md:text-2xl font-black text-slate-900 mt-3 mb-2">
+                O que é PMOC?
+              </h3>
+              <div className="h-1 bg-[#5FBF45] w-16 rounded-full mb-6" />
+
+              <div className="space-y-4 text-xs text-slate-700 leading-relaxed">
+                <p>
+                  O <strong>Plano de Manutenção, Operação e Controle (PMOC)</strong> é uma exigência legal referente à <strong>Lei 13.589/18</strong>. Essa lei é um compilado de procedimentos necessários para verificar a limpeza e integridade de sistemas de refrigeração e climatização.
+                </p>
+                <p>
+                  A ideia é garantir a limpeza de todos os equipamentos que compõem um sistema de refrigeração e livrá-los de fungos, ácaros, bactérias, entre outros responsáveis por gerar e agravar doenças respiratórias, como: bronquite, asma, sinusite, rinite, entre outras.
+                </p>
+                <div className="bg-white p-4 rounded-2xl border border-emerald-100 text-emerald-800 font-medium mt-2">
+                  <strong>Proteção e saúde:</strong> Climatização limpa com ar de qualidade reduz drasticamente faltas de colaboradores devido a alergias e atesta a responsabilidade ambiental de sua empresa.
+                </div>
+              </div>
             </div>
           </div>
 
