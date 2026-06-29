@@ -37,34 +37,6 @@ Aplicação web institucional moderna da **ARF Solar**, desenvolvida em **Next.j
 
 ---
 
-## 📦 Como Rodar o Projeto Localmente
-
-### Pré-requisitos
-Certifique-se de ter o **Node.js** instalado em seu computador.
-
-### Passos
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
-2. Crie ou configure o arquivo `.env.local` na raiz do projeto contendo a sua chave de e-mail do Web3Forms:
-   ```env
-   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=a79361ff-f974-4c22-bab0-7d1015f391c2
-   ```
-3. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-4. Abra o navegador em `http://localhost:3000`.
-
-### Geração de Build de Produção
-Para compilar a aplicação otimizada para publicação:
-```bash
-npm run build
-```
-
----
-
 ## ✉️ Canais de Atendimento
 
 * **WhatsApp**: [(11) 94776-9974](https://wa.me/5511947769974)

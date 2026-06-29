@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, ThumbsUp, Send, AlertTriangle, Loader2 } from "lucide-react";
 
-const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || ""; // Substitua aqui por sua chave do Web3Forms
-
 export default function Contato() {
   const [formData, setFormData] = useState({
     nome: "",
@@ -25,28 +23,18 @@ export default function Contato() {
     e.preventDefault();
     setFormStatus("sending");
 
-    // Se o usuário não configurou a chave ainda, fazemos um envio simulado (mock) com timer de 1.5s
-    if (ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE" || ACCESS_KEY.trim() === "") {
-      setTimeout(() => {
-        setFormStatus("success");
-        setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
-      }, 1500);
-      return;
-    }
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contato", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          name: formData.nome,
+          nome: formData.nome,
           email: formData.email,
-          phone: formData.telefone,
-          message: formData.mensagem,
+          telefone: formData.telefone,
+          mensagem: formData.mensagem,
           from_name: "Site ARF Solar",
           subject: "Nova Mensagem de Contato - ARF Solar",
         }),

@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import { Sun, ShieldCheck, HelpCircle, Building2, Car, Tractor, Phone, Mail, ThumbsUp, Send, AlertTriangle, Loader2 } from "lucide-react";
 
-const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
-
 export default function EnergiaSolar() {
   const [activeTab, setActiveTab] = useState("funcionamento");
 
@@ -28,28 +26,18 @@ export default function EnergiaSolar() {
     e.preventDefault();
     setFormStatus("sending");
 
-    // Se o usuário não configurou a chave ainda, fazemos um envio simulado (mock) com timer de 1.5s
-    if (ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE" || ACCESS_KEY.trim() === "") {
-      setTimeout(() => {
-        setFormStatus("success");
-        setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
-      }, 1500);
-      return;
-    }
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contato", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          name: formData.nome,
+          nome: formData.nome,
           email: formData.email,
-          phone: formData.telefone,
-          message: formData.mensagem,
+          telefone: formData.telefone,
+          mensagem: formData.mensagem,
           from_name: "Site ARF Solar - Soluções",
           subject: "Novo Lead de Energia Solar - ARF Solar",
         }),

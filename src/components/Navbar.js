@@ -87,7 +87,7 @@ export default function Navbar() {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute left-0 mt-2 w-60 rounded-xl bg-[#5fbf45] shadow-2xl py-2 border border-[#5fbf45] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute left-0 mt-2 w-64 rounded-xl bg-[#5fbf45] shadow-2xl py-2 border border-[#5fbf45] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <Link
                     href="/ar-condicionado/instalacao"
                     className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
@@ -99,6 +99,24 @@ export default function Navbar() {
                     className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
                   >
                     Infraestrutura Ar Condicionado
+                  </Link>
+                  <Link
+                    href="/ar-condicionado/dutos"
+                    className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
+                  >
+                    Dutos Industriais
+                  </Link>
+                  <Link
+                    href="/ar-condicionado/vrf"
+                    className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
+                  >
+                    Sistemas VRF
+                  </Link>
+                  <Link
+                    href="/ar-condicionado/chiller"
+                    className="block px-4 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
+                  >
+                    Sistemas Chiller
                   </Link>
                 </div>
               )}
@@ -205,6 +223,27 @@ export default function Navbar() {
             >
               Infraestrutura Ar Condicionado
             </Link>
+            <Link
+              href="/ar-condicionado/dutos"
+              className={`block px-5 py-2.5 rounded-lg text-sm font-bold text-white transition-all ${pathname === "/ar-condicionado/dutos" ? "bg-[#ffcf00] text-[#0468BF]" : "hover:bg-white/15"
+                }`}
+            >
+              Dutos Industriais
+            </Link>
+            <Link
+              href="/ar-condicionado/vrf"
+              className={`block px-5 py-2.5 rounded-lg text-sm font-bold text-white transition-all ${pathname === "/ar-condicionado/vrf" ? "bg-[#ffcf00] text-[#0468BF]" : "hover:bg-white/15"
+                }`}
+            >
+              Sistemas VRF
+            </Link>
+            <Link
+              href="/ar-condicionado/chiller"
+              className={`block px-5 py-2.5 rounded-lg text-sm font-bold text-white transition-all ${pathname === "/ar-condicionado/chiller" ? "bg-[#ffcf00] text-[#0468BF]" : "hover:bg-white/15"
+                }`}
+            >
+              Sistemas Chiller
+            </Link>
           </div>
 
           {/* Link Contato Mobile */}
@@ -221,7 +260,7 @@ export default function Navbar() {
           {/* Redes Sociais Mobile */}
           <div className="flex items-center gap-3 pt-4 border-t border-white/20">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/arf.solar"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 w-1/2 bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white font-bold py-3.5 px-4 rounded-xl text-center justify-center hover:opacity-90"
@@ -229,7 +268,7 @@ export default function Navbar() {
               Instagram
             </a>
             <a
-              href="https://wa.me/5511947769974?text=Olá!"
+              href="https://wa.me/5511947769974?text=Olá!%20Gostaria%20de%20fazer%20um%20orçamento."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 w-1/2 bg-[#019c35] text-white font-bold py-3.5 px-4 rounded-xl text-center justify-center hover:bg-[#019c35]/85"
