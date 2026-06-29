@@ -6,17 +6,18 @@ import { ChevronLeft, ChevronRight, Wind, ShieldCheck, Hammer, Layers } from "lu
 export default function Infraestrutura() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    { id: 0, type: "video", name: "Video_Demonstrativo_Infraestrutura", desc: "Vídeo Demonstrativo do Serviço de Infraestrutura de Ar-Condicionado." },
-    { id: 1, type: "image", name: "Infraestrutura_Slide_1_Cobre", desc: "Instalação de tubulações de cobre de alta qualidade." },
-    { id: 2, type: "image", name: "Infraestrutura_Slide_2_Drenos", desc: "Drenagem por gravidade com tubos rígidos embutidos." },
-    { id: 3, type: "image", name: "Infraestrutura_Slide_3_Furos", desc: "Furo técnico circular em concreto de vigas estruturais." },
-    { id: 4, type: "image", name: "Infraestrutura_Slide_4_Isolamento", desc: "Isolamento térmico em elastômero para evitar condensação." },
-    { id: 5, type: "image", name: "Infraestrutura_Slide_5_Caixas_Passagem", desc: "Caixas de passagem de ar-condicionado embutidas na alvenaria." },
-    { id: 6, type: "image", name: "Infraestrutura_Slide_6_Cabos", desc: "Passagem de fiação elétrica de comando e força." },
-    { id: 7, type: "image", name: "Infraestrutura_Slide_7_Fixacao", desc: "Fixação e ancoragem segura de linhas de refrigeração no teto." },
-    { id: 8, type: "image", name: "Infraestrutura_Slide_8_Galpao", desc: "Infraestrutura industrial executada em galpão de logística." },
-    { id: 9, type: "image", name: "Infraestrutura_Slide_9_Escritorio", desc: "Tubulações prontas no teto para sistemas cassete." },
-    { id: 10, type: "image", name: "Infraestrutura_Slide_10_Teste", desc: "Pressurização com nitrogênio para garantia contra vazamentos." }
+    { id: 0, type: "video", name: "Video_Demonstrativo_Infraestrutura", desc: "Vídeo Demonstrativo do Serviço de Infraestrutura de Ar-Condicionado.", videoUrl: "https://player.vimeo.com/video/1205315465?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" },
+    { id: 1, type: "video", name: "Infraestrutura_Slide_1_Cobre", desc: "Instalação de tubulações de cobre de alta qualidade.", videoUrl: "https://player.vimeo.com/video/1205313753?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" },
+    { id: 2, type: "image", name: "ar (1).jpg", path: "/imgs/infra/ar (1).jpg", desc: "Instalação de isolamento térmico premium nos tubos de cobre." },
+    { id: 3, type: "image", name: "ar (1).png", path: "/imgs/infra/ar (1).png", desc: "Passagem de tubulações de cobre sob o forro de gesso." },
+    { id: 4, type: "image", name: "ar (2).png", path: "/imgs/infra/ar (2).png", desc: "Drenagem rígida e embutida para prevenção de infiltrações." },
+    { id: 5, type: "image", name: "ar (3).png", path: "/imgs/infra/ar (3).png", desc: "Furo técnico estrutural circular em viga de concreto." },
+    { id: 6, type: "image", name: "ar (4).png", path: "/imgs/infra/ar (4).png", desc: "Organização e fixação de linhas frigorígenas." },
+    { id: 7, type: "image", name: "ar (5).png", path: "/imgs/infra/ar (5).png", desc: "Caixas de passagem de ar-condicionado na alvenaria." },
+    { id: 8, type: "image", name: "ar (6).jpg", path: "/imgs/infra/ar (6).jpg", desc: "Organização da infraestrutura em grandes galpões." },
+    { id: 9, type: "image", name: "ar (7).jpg", path: "/imgs/infra/ar (7).jpg", desc: "Distribuição técnica de tubulações no teto." },
+    { id: 10, type: "image", name: "ar (8).jpg", path: "/imgs/infra/ar (8).jpg", desc: "Instalação dos tubos para sistemas cassete." },
+    { id: 11, type: "image", name: "ar (9).jpg", path: "/imgs/infra/ar (9).jpg", desc: "Teste de estanqueidade e pressurização sob pressão." }
   ];
 
   const prevSlide = () => {
@@ -105,27 +106,21 @@ export default function Infraestrutura() {
                     }`}
                 >
                   {slide.type === "video" ? (
-                    <div className="w-full h-full p-4 flex flex-col items-center justify-center text-center bg-slate-950">
-                      <div className="w-full h-[85%] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 flex items-center justify-center text-white/50 relative">
-                        {/* Embed de vídeo ou Iframe do Youtube */}
-                        <iframe
-                          className="w-full h-full"
-                          src="https://www.youtube.com/embed/NkPlo7GciAA"
-                          title="Vídeo de Infraestrutura de Climatização"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                      <span className="text-xs text-white/70 mt-2 font-bold">{slide.desc}</span>
+                    <div className="w-full h-full bg-slate-950">
+                      <iframe
+                        className="w-full h-full"
+                        src={slide.videoUrl || "https://www.youtube.com/embed/NkPlo7GciAA"}
+                        title="Vídeo de Infraestrutura de Climatização"
+                        allowFullScreen
+                      ></iframe>
                     </div>
                   ) : (
-                    <div className="w-full h-full p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-slate-700/60 rounded-3xl m-4">
-                      <Layers className="w-12 h-12 text-[#5FBF45] mb-2 animate-bounce" />
-                      <span className="text-sm font-bold text-white block">
-                        [Espaço para Imagem: {slide.name}]
-                      </span>
-                      <span className="text-xs text-white/50 mt-1">
-                        {slide.desc}
-                      </span>
+                    <div className="relative w-full h-full">
+                      <img
+                        src={slide.path}
+                        alt={slide.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   )}
                 </div>

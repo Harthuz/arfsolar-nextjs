@@ -6,16 +6,17 @@ import { ChevronLeft, ChevronRight, Wind, ShieldCheck, ThumbsUp, Wrench } from "
 export default function Instalacao() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    { id: 1, name: "Instalacao_Slide_1_Split_Quarto", desc: "Instalação de ar-condicionado Split em dormitório residencial." },
-    { id: 2, name: "Instalacao_Slide_2_Cassete_Escritorio", desc: "Equipamento Cassete instalado em sala de reuniões corporativa." },
-    { id: 3, name: "Instalacao_Slide_3_Condensadoras", desc: "Condensadoras organizadas em área técnica dedicada." },
-    { id: 4, name: "Instalacao_Slide_4_Piso_Teto_Comercial", desc: "Aparelho Piso Teto instalado em salão comercial de grande fluxo." },
-    { id: 5, name: "Instalacao_Slide_5_Multi_Split_Apartamento", desc: "Sistema multi-split conectando múltiplas evaporadoras em apartamento." },
-    { id: 6, name: "Instalacao_Slide_6_VRF_Predial", desc: "Instalação de sistema central VRF para climatização inteligente de edifício." },
-    { id: 7, name: "Instalacao_Slide_7_Suportes_Condensadoras", desc: "Fixação e fixadores de parede externos com borrachas antivibração." },
-    { id: 8, name: "Instalacao_Slide_8_Isolamento_Tubos", desc: "Isolamento térmico blindado em tubulação de cobre para evitar gotejamentos." },
-    { id: 9, name: "Instalacao_Slide_9_Evaporadora_Sala", desc: "Evaporadora split instalada de forma harmônica na sala de estar." },
-    { id: 10, name: "Instalacao_Slide_10_Teste_Pressao", desc: "Realização do teste de estanqueidade e vácuo no sistema de refrigeração." }
+    { id: 0, type: "video", name: "Video_Demonstrativo_Instalacao", desc: "Vídeo Demonstrativo do Serviço de Instalação de Ar-Condicionado.", videoUrl: "https://www.youtube.com/embed/NkPlo7GciAA" },
+    { id: 1, type: "image", name: "ar (1).jpg", path: "/imgs/ar_condicionado/ar (1).jpg", desc: "Instalação de evaporadora Split residencial em dormitório." },
+    { id: 2, type: "image", name: "ar (1).png", path: "/imgs/ar_condicionado/ar (1).png", desc: "Montagem de linhas de refrigeração e isolamento." },
+    { id: 3, type: "image", name: "ar (2).jpg", path: "/imgs/ar_condicionado/ar (2).jpg", desc: "Unidade condensadora externa fixada com suporte antivibratório." },
+    { id: 4, type: "image", name: "ar (2).png", path: "/imgs/ar_condicionado/ar (2).png", desc: "Equipamento Cassete instalado em sala corporativa." },
+    { id: 5, type: "image", name: "ar (3).jpg", path: "/imgs/ar_condicionado/ar (3).jpg", desc: "Instalação técnica em salão comercial Piso Teto." },
+    { id: 6, type: "image", name: "ar (3).png", path: "/imgs/ar_condicionado/ar (3).png", desc: "Testes de vazão e direcionamento de ar." },
+    { id: 7, type: "image", name: "ar (4).jpg", path: "/imgs/ar_condicionado/ar (4).jpg", desc: "Passagem de fiação elétrica de comando elétrico." },
+    { id: 8, type: "image", name: "ar (4).png", path: "/imgs/ar_condicionado/ar (4).png", desc: "Conexão de flanges e tubulação de cobre." },
+    { id: 9, type: "image", name: "ar (5).png", path: "/imgs/ar_condicionado/ar (5).png", desc: "Organização de condensadoras em área técnica." },
+    { id: 10, type: "image", name: "ar (6).png", path: "/imgs/ar_condicionado/ar (6).png", desc: "Finalização estética e testes operacionais finais." }
   ];
 
   const prevSlide = () => {
@@ -103,15 +104,24 @@ export default function Instalacao() {
                   className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${idx === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
                     }`}
                 >
-                  <div className="w-full h-full p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-slate-700/60 rounded-3xl m-4">
-                    <Wind className="w-12 h-12 text-[#5FBF45] mb-2 animate-bounce" />
-                    <span className="text-sm font-bold text-white block">
-                      [Espaço para Imagem: {slide.name}]
-                    </span>
-                    <span className="text-xs text-white/50 mt-1">
-                      {slide.desc}
-                    </span>
-                  </div>
+                  {slide.type === "video" ? (
+                    <div className="w-full h-full bg-slate-950">
+                      <iframe
+                        className="w-full h-full"
+                        src={slide.videoUrl || "https://www.youtube.com/embed/NkPlo7GciAA"}
+                        title="Vídeo de Instalação de Climatização"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  ) : (
+                    <div className="relative w-full h-full">
+                      <img 
+                        src={slide.path} 
+                        alt={slide.name} 
+                        className="w-full h-full object-cover" 
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
 

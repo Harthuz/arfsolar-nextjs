@@ -15,21 +15,21 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-white/95">
               <li className="flex items-start gap-2">
-                <span className="font-bold text-[#ffcf00]">WhatsApp:</span>
+                <span className="font-bold">WhatsApp:</span>
                 <a
                   href="https://wa.me/5511947769974?text=Olá!%20Gostaria%20de%20fazer%20um%20orçamento."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline hover:text-[#ffcf00] font-bold"
+                  className="hover:underline font-bold"
                 >
                   (11) 94776-9974
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <span className="font-bold text-[#ffcf00]">E-mail:</span>
+                <span className="font-bold">E-mail:</span>
                 <a
                   href="mailto:contato@arfsolar.com.br"
-                  className="hover:underline hover:text-[#ffcf00] font-bold"
+                  className="hover:underline font-bold"
                 >
                   contato@arfsolar.com.br
                 </a>
