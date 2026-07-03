@@ -34,11 +34,3 @@ Aplicação web institucional moderna da **ARF Solar**, desenvolvida em **Next.j
      $$\text{Payback (em anos)} = \frac{\text{Valor do Investimento}}{\text{Economia Anual Total}}$$
 6. **Formulários de Contato Integrados**:
    * Formulários na página de Contato e Energia Solar conectados ao **Web3Forms** via variável de ambiente, com fallback de simulação local automática para testes ágeis sem chaves de API.
-
----
-
-## ✉️ Canais de Atendimento
-
-* **WhatsApp**: [(11) 94776-9974](https://wa.me/5511947769974)
-* **E-mail**: [contato@arfsolar.com.br](mailto:contato@arfsolar.com.br)
-* **Endereço**: Rua Manoel Rodrigues, 16 - Vila Monte Santo, São Paulo - SP - CEP 08062-015
