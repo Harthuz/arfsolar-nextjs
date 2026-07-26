@@ -33,4 +33,15 @@ Aplicação web institucional moderna da **ARF Solar**, desenvolvida em **Next.j
    * **Payback Financeiro**: Demonstração passo a passo da fórmula matemática padrão:
      $$\text{Payback (em anos)} = \frac{\text{Valor do Investimento}}{\text{Economia Anual Total}}$$
 6. **Formulários de Contato Integrados**:
-   * Formulários na página de Contato e Energia Solar conectados ao **Web3Forms** via variável de ambiente, com fallback de simulação local automática para testes ágeis sem chaves de API.
+   * Formulários de Contato e Energia Solar configurados para envio de e-mails via **Nodemailer** (SMTP) e notificações push de alta prioridade via **Pushover**.
+   * Todas as chaves são gerenciadas via variáveis de ambiente (`.env`) no servidor, com fallback automático no ambiente de desenvolvimento para simular sucessos em testes ágeis locais sem credenciais.
+
+---
+
+## 🧪 Testes e Validações
+
+Para validar as configurações SMTP do seu provedor de forma isolada, um script de teste foi implementado. Certifique-se de configurar as chaves `SMTP_*` e `PUSHOVER_*` no `.env` e execute (requer Node.js 20.6+):
+
+```bash
+node --env-file=.env tests/test-email.js
+```
