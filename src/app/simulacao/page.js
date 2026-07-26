@@ -125,9 +125,9 @@ export default function Simulacao() {
                 Quanto você paga de conta de luz?
               </h2>
               
-              <div className="relative mb-6">
+              <div className="flex flex-col mb-6">
                 {errorConta && (
-                  <div className="absolute -top-10 left-0 bg-red-100 text-red-700 px-3 py-1 rounded-md text-xs font-semibold shadow-sm animate-pulse border border-red-200">
+                  <div className="bg-red-100 text-red-700 px-3 py-2 rounded-md text-xs font-semibold shadow-sm border border-red-200 mb-2">
                     {errorConta}
                   </div>
                 )}
