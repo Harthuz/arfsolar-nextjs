@@ -1,25 +1,104 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calculator, Zap, TrendingUp, ShieldCheck, Sun, ArrowRight } from "lucide-react";
+import { Calculator, Zap, TrendingUp, ShieldCheck, Sun, ArrowRight, Phone, User } from "lucide-react";
 
 export default function Simulacao() {
-  const [contaMensal, setContaMensal] = useState(300);
+  const [contaInput, setContaInput] = useState("300");
+  const [errorConta, setErrorConta] = useState("");
+  
+  // Estados para o formulário de Lead
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Tratamento do valor da conta
+  const contaMensalNum = parseFloat(contaInput);
+  const isValidConta = !isNaN(contaMensalNum) && contaMensalNum > 0;
+
+  const handleContaChange = (e) => {
+    const val = e.target.value;
+    setContaInput(val);
+    if (val === "" || parseFloat(val) <= 0) {
+      setErrorConta("Por favor, insira um valor válido maior que zero.");
+    } else if (parseFloat(val) < 150) {
+      setErrorConta("Valores abaixo de R$ 150 têm menor viabilidade, mas seguimos à disposição.");
+    } else {
+      setErrorConta("");
+    }
+  };
+
+  // Valores default para cálculos caso o input seja inválido
+  const contaBase = isValidConta ? contaMensalNum : 0;
 
   // Lógica matemática simplificada para simulação fotovoltaica
   const custoKwh = 0.95; // Custo médio estimado do kWh com impostos inclusos
-  const consumoEstimadoKwh = Math.round(contaMensal / custoKwh);
+  const consumoEstimadoKwh = Math.round(contaBase / custoKwh);
   // Sistema médio: 1 kWp gera aproximadamente 120 kWh/mês no Sudeste brasileiro
   const potenciaNecessariaKwp = parseFloat((consumoEstimadoKwh / 120).toFixed(2));
   // Cada placa fotovoltaica moderna gera cerca de 0.5 kWp
   const totalPaineisSugeridos = Math.max(2, Math.round(potenciaNecessariaKwp / 0.5));
   // Economia mensal calculada considerando a taxa mínima obrigatória da concessionária
-  const economiaMensalEstimada = Math.round(contaMensal * 0.90);
+  const economiaMensalEstimada = Math.round(contaBase * 0.90);
   const economiaAnualEstimada = economiaMensalEstimada * 12;
   const economia25AnosEstimada = economiaAnualEstimada * 25;
   // Investimento estimado com base nos custos de mercado atuais
   const investimentoAproximado = Math.round(potenciaNecessariaKwp * 4850);
-  const tempoRetornoAnos = parseFloat((investimentoAproximado / economiaAnualEstimada).toFixed(1));
+  const tempoRetornoAnos = economiaAnualEstimada > 0 ? parseFloat((investimentoAproximado / economiaAnualEstimada).toFixed(1)) : 0;
+
+  // Link do WhatsApp com as informações da simulação
+  const wpText = encodeURIComponent(
+    `Olá! Simulei minha conta no site (R$ ${contaBase}/mês). Meu consumo estimado é de ${consumoEstimadoKwh} kWh, precisando de ~${totalPaineisSugeridos} placas (${potenciaNecessariaKwp} kWp). Gostaria de um projeto detalhado.`
+  );
+  const wpLink = `https://wa.me/5511947769974?text=${wpText}`;
+
+  // Validação do formulário de contato
+  const isFormValid = nome.trim().length > 2 && telefone.trim().length >= 10;
+
+  const handleSolicitarEstudo = async (e) => {
+    e.preventDefault();
+    if (!showContactForm) {
+      setShowContactForm(true);
+      return;
+    }
+
+    if (!isFormValid) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome,
+          email: "N/A (Lead do Simulador)",
+          telefone,
+          subject: "Novo Lead - Simulação Fotovoltaica",
+          from_name: "Simulador Solar ARF",
+          mensagem: `Nova simulação realizada no site:\n\nConta de Luz: R$ ${contaBase}\nConsumo Estimado: ${consumoEstimadoKwh} kWh/mês\nTamanho do Sistema: ${potenciaNecessariaKwp} kWp\nPlacas Sugeridas: ${totalPaineisSugeridos}\nEconomia Anual Estimada: R$ ${economiaAnualEstimada}\nPayback: ~${tempoRetornoAnos} anos.`,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setTimeout(() => {
+          setShowContactForm(false);
+          setSubmitSuccess(false);
+          setNome("");
+          setTelefone("");
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar simulação:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className="bg-white min-h-screen pt-28 pb-20">
@@ -45,22 +124,25 @@ export default function Simulacao() {
               <h2 className="text-lg font-bold text-slate-900 mb-4">
                 Quanto você paga de conta de luz?
               </h2>
-              <div className="text-4xl font-extrabold text-[#0468BF] mb-4">
-                R$ {contaMensal} <span className="text-xs text-slate-400 font-normal">/ mês</span>
-              </div>
-              <input
-                type="range"
-                min="150"
-                max="5000"
-                step="50"
-                value={contaMensal}
-                onChange={(e) => setContaMensal(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0468BF]"
-              />
-              <div className="flex justify-between text-[10px] text-slate-500 mt-2 font-bold uppercase">
-                <span>R$ 150</span>
-                <span>R$ 2.500</span>
-                <span>R$ 5.000</span>
+              
+              <div className="relative mb-6">
+                {errorConta && (
+                  <div className="absolute -top-10 left-0 bg-red-100 text-red-700 px-3 py-1 rounded-md text-xs font-semibold shadow-sm animate-pulse border border-red-200">
+                    {errorConta}
+                  </div>
+                )}
+                <div className="flex items-center text-3xl font-extrabold text-[#0468BF] bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-inner focus-within:ring-2 focus-within:ring-[#0468BF] transition-all">
+                  <span className="mr-2 text-slate-400 text-xl">R$</span>
+                  <input
+                    type="number"
+                    value={contaInput}
+                    onChange={handleContaChange}
+                    placeholder="Ex: 300"
+                    className="bg-transparent w-full outline-none text-[#0468BF] placeholder-slate-300"
+                    min="0"
+                  />
+                  <span className="ml-2 text-sm text-slate-400 font-normal">/ mês</span>
+                </div>
               </div>
             </div>
 
@@ -78,19 +160,63 @@ export default function Simulacao() {
 
             <div className="space-y-3">
               <a
-                href="https://wa.me/5511947769974?text=Olá!%20Simulei%20minha%20conta%20no%20site%20e%20gostaria%20de%20um%20projeto."
+                href={wpLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-center w-full bg-[#5FBF45] hover:bg-[#80BF6F] text-white font-extrabold px-4 py-4 rounded-xl block shadow transition-all duration-200 text-sm"
               >
                 Falar diretamente no WhatsApp
               </a>
-              <a
-                href="/contato"
-                className="text-center w-full bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-4 rounded-xl block transition-all duration-200 text-sm"
+
+              {/* Formulário Interativo de Contato */}
+              <div className={`transition-all duration-300 overflow-hidden ${showContactForm ? "max-h-64 opacity-100 mb-3" : "max-h-0 opacity-0"}`}>
+                <div className="space-y-3 p-1">
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Seu Nome"
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
+                      className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-sm outline-none focus:border-[#0468BF] focus:ring-1 focus:ring-[#0468BF]"
+                    />
+                  </div>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="tel"
+                      placeholder="Seu WhatsApp"
+                      value={telefone}
+                      onChange={(e) => setTelefone(e.target.value)}
+                      className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-sm outline-none focus:border-[#0468BF] focus:ring-1 focus:ring-[#0468BF]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={handleSolicitarEstudo}
+                disabled={showContactForm && !isFormValid || isSubmitting}
+                className={`text-center w-full font-bold px-4 py-4 rounded-xl block transition-all duration-200 text-sm flex items-center justify-center gap-2
+                  ${!showContactForm 
+                    ? "bg-slate-900 hover:bg-slate-800 text-white" 
+                    : (isFormValid 
+                        ? "bg-[#0468BF] hover:bg-[#035399] text-white shadow-md" 
+                        : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-70")
+                  }
+                  ${submitSuccess ? "bg-green-500 text-white" : ""}
+                `}
               >
-                Solicitar Estudo Técnico Detalhado
-              </a>
+                {isSubmitting ? (
+                  "Enviando..."
+                ) : submitSuccess ? (
+                  "Mensagem Enviada! 🎉"
+                ) : showContactForm ? (
+                  "Enviar Mensagem"
+                ) : (
+                  "Solicitar Estudo Técnico Detalhado"
+                )}
+              </button>
             </div>
           </div>
 
