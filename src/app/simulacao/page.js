@@ -57,7 +57,7 @@ export default function Simulacao() {
   // Validação do formulário de contato
   const isFormValid = nome.trim().length > 2 && telefone.trim().length >= 10;
 
-  const handleSolicitarEstudo = async (e) => {
+  const handleSolicitarEstudo = (e) => {
     e.preventDefault();
     if (!showContactForm) {
       setShowContactForm(true);
@@ -68,36 +68,35 @@ export default function Simulacao() {
 
     setIsSubmitting(true);
 
-    try {
-      const response = await fetch("/api/contato", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome,
-          email: "N/A (Lead do Simulador)",
-          telefone,
-          subject: "Novo Lead - Simulação Fotovoltaica",
-          from_name: "Simulador Solar ARF",
-          mensagem: `Nova simulação realizada no site:\n\nConta de Luz: R$ ${contaBase}\nConsumo Estimado: ${consumoEstimadoKwh} kWh/mês\nTamanho do Sistema: ${potenciaNecessariaKwp} kWp\nPlacas Sugeridas: ${totalPaineisSugeridos}\nEconomia Anual Estimada: R$ ${economiaAnualEstimada}\nPayback: ~${tempoRetornoAnos} anos.`,
-        }),
-      });
+    // Dispara a requisição em background (fire and forget)
+    fetch("/api/contato", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome,
+        email: "N/A (Lead do Simulador)",
+        telefone,
+        subject: "Novo Lead - Simulação Fotovoltaica",
+        from_name: "Simulador Solar ARF",
+        mensagem: `Nova simulação realizada no site:\n\nConta de Luz: R$ ${contaBase}\nConsumo Estimado: ${consumoEstimadoKwh} kWh/mês\nTamanho do Sistema: ${potenciaNecessariaKwp} kWp\nPlacas Sugeridas: ${totalPaineisSugeridos}\nEconomia Anual Estimada: R$ ${economiaAnualEstimada}\nPayback: ~${tempoRetornoAnos} anos.`,
+      }),
+    }).catch(console.error);
 
-      if (response.ok) {
-        setSubmitSuccess(true);
-        setTimeout(() => {
-          setShowContactForm(false);
-          setSubmitSuccess(false);
-          setNome("");
-          setTelefone("");
-        }, 5000);
-      }
-    } catch (error) {
-      console.error("Erro ao enviar simulação:", error);
-    } finally {
+    // UX: simula 1 segundo de "Enviando..." e então sucesso imediato
+    setTimeout(() => {
       setIsSubmitting(false);
-    }
+      setSubmitSuccess(true);
+      
+      // Restaura o estado normal após alguns segundos
+      setTimeout(() => {
+        setShowContactForm(false);
+        setSubmitSuccess(false);
+        setNome("");
+        setTelefone("");
+      }, 4000);
+    }, 1000);
   };
 
   return (
@@ -131,7 +130,7 @@ export default function Simulacao() {
                     {errorConta}
                   </div>
                 )}
-                <div className="flex items-center text-3xl font-extrabold text-[#0468BF] bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-inner focus-within:ring-2 focus-within:ring-[#0468BF] transition-all">
+                <div className="flex items-center text-3xl font-extrabold text-[#0468BF] bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-inner focus-within:ring-2 focus-within:ring-[#0468BF] transition-all mb-4">
                   <span className="mr-2 text-slate-400 text-xl">R$</span>
                   <input
                     type="number"
@@ -142,6 +141,24 @@ export default function Simulacao() {
                     min="0"
                   />
                   <span className="ml-2 text-sm text-slate-400 font-normal">/ mês</span>
+                </div>
+                
+                <input
+                  type="range"
+                  min="150"
+                  max="5000"
+                  step="50"
+                  value={contaBase > 0 ? contaBase : 150}
+                  onChange={(e) => {
+                    setContaInput(e.target.value);
+                    setErrorConta("");
+                  }}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0468BF]"
+                />
+                <div className="flex justify-between text-[10px] text-slate-500 mt-2 font-bold uppercase">
+                  <span>R$ 150</span>
+                  <span>R$ 2.500</span>
+                  <span>R$ 5.000</span>
                 </div>
               </div>
             </div>
@@ -196,15 +213,17 @@ export default function Simulacao() {
 
               <button
                 onClick={handleSolicitarEstudo}
-                disabled={showContactForm && !isFormValid || isSubmitting}
+                disabled={(showContactForm && !isFormValid) || isSubmitting || submitSuccess}
                 className={`text-center w-full font-bold px-4 py-4 rounded-xl block transition-all duration-200 text-sm flex items-center justify-center gap-2
-                  ${!showContactForm 
-                    ? "bg-slate-900 hover:bg-slate-800 text-white" 
-                    : (isFormValid 
-                        ? "bg-[#0468BF] hover:bg-[#035399] text-white shadow-md" 
-                        : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-70")
+                  ${submitSuccess 
+                    ? "bg-green-500 text-white cursor-default pointer-events-none" 
+                    : (!showContactForm 
+                        ? "bg-slate-900 hover:bg-slate-800 text-white" 
+                        : (isFormValid 
+                            ? "bg-[#0468BF] hover:bg-[#035399] text-white shadow-md" 
+                            : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-70")
+                      )
                   }
-                  ${submitSuccess ? "bg-green-500 text-white" : ""}
                 `}
               >
                 {isSubmitting ? (
