@@ -89,7 +89,8 @@ export async function POST(request) {
             message: `Nome: ${nome}\nTelefone: ${telefone}\nMensagem: ${mensagem}`,
             url: "https://arfsolar.com.br",
             url_title: "Acessar Site",
-            priority: 0,
+            priority: 1, // Prioridade alta
+            sound: "siren", // Som de alarme
           }),
         });
 
